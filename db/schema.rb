@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140224143455) do
+ActiveRecord::Schema.define(:version => 20140310112453) do
 
   create_table "applications", :force => true do |t|
     t.string   "name"
@@ -38,30 +38,9 @@ ActiveRecord::Schema.define(:version => 20140224143455) do
   add_index "deployments", ["application_id", "environment", "created_at"], :name => "index_deployments_on_application_id_etc"
 
   create_table "releases", :force => true do |t|
-    t.text     "notes"
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
-    t.datetime "deploy_at"
-    t.boolean  "released",                   :default => false
-    t.datetime "released_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "user_id"
-    t.text     "product_team_members"
-    t.text     "summary"
-    t.text     "description_of_changes"
-    t.text     "additional_support_notes"
-    t.text     "extended_test_period_notes"
-  end
-
-  create_table "tasks", :force => true do |t|
-    t.integer  "application_id"
-    t.string   "version"
-    t.text     "description"
-    t.text     "application_changes"
-    t.boolean  "additional_support_required", :default => false
-    t.boolean  "extended_support_required",   :default => false
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
-    t.integer  "release_id"
   end
 
   create_table "users", :force => true do |t|

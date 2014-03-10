@@ -1,8 +1,6 @@
 class ReleasesController < ApplicationController
   def index
     @releases = Release.all
-    @todays_releases = Release.todays_releases.all
-    @future_releases = Release.future_releases.all
   end
 
   def show
@@ -15,7 +13,6 @@ class ReleasesController < ApplicationController
 
   def edit
     @release = Release.find(params[:id])
-    @tasks = Task.where("release_id = ? OR release_id = ?", @release.id, nil)
   end
 
   def create

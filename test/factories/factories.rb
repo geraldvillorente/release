@@ -1,19 +1,6 @@
 FactoryGirl.define do
   factory :release do
-    summary "release summary"
-    notes "release notes"
-    deploy_at { Time.zone.now }
     user
-
-    after(:build) do |release|
-      release.tasks << FactoryGirl.build(:task, :release_id => release.id)
-    end
-  end
-
-  factory :task do
-    application
-    sequence :version
-    description "deploy this"
   end
 
   factory :application do
