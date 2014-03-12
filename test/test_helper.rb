@@ -16,6 +16,8 @@ require 'webmock/test_unit'
 DatabaseCleaner.clean
 
 class ActiveSupport::TestCase
+  include FactoryGirl::Syntax::Methods
+
   def stub_user
     @stub_user ||= FactoryGirl.create(:user, :name => 'Stub User')
   end
@@ -30,6 +32,10 @@ class ActiveSupport::TestCase
       :authenticated? => true,
       :user => user
     )
+  end
+
+  setup do
+    DatabaseCleaner.start
   end
 
   teardown do
