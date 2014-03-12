@@ -39,6 +39,13 @@ class ReleaseSlot
     for_date(date, true).select(&:available?)
   end
 
+  def self.between(start_at, end_at)
+    slots = for_date(start_at.to_date)
+    slots.select {|s|
+      s.start_at >= start_at && s.end_at <= end_at
+    }
+  end
+
   def self.first_release(date)
     date.to_time.change(hour: 9, min: 30)
   end

@@ -1,5 +1,24 @@
 <%= semantic_bootstrap_nested_form_for @release, :html => {:class => "form-horizontal"} do |f| %>
+
+  <h3><%= release_slot_date(f).strftime("%A %d %B") %></h3>
+
+  <%= f.input :release_slots, as: :select,
+                              multiple: true,
+                              collection: release_slots_for_select(f),
+                              label: "Choose a slot",
+                              input_html: { class: "enhanced-select span6" }
+                              %>
+  <div class="hint">You can choose as many time slots as you need, as long as they're together.</div>
+
   <%= f.actions do %>
-      <%= f.action :submit, :as => :button %>
+    <%= f.action :submit, :as => :button %>
   <% end %>
+<% end %>
+
+<% content_for :extra_javascript do %>
+<script type="text/javascript">
+$(function(){
+  $(".enhanced-select").chosen();
+});
+</script>
 <% end %>

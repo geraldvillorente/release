@@ -2,6 +2,11 @@
 
 <h1><%= "Release #{@release.id}" %></h1>
 
+<p>
+  Start at: <%= @release.start_at %><br>
+  End at: <%= @release.end_at %>
+</p>
+
 <div class="btn-group">
   <%= link_to "Edit", { action: "edit", id: @release.id }, class: "btn" %>
 </div>
