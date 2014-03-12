@@ -32,7 +32,8 @@ class ReleasesController < ApplicationController
     if @release.update_attributes(params[:release])
       redirect_to @release, flash: { notice: "Successfully updated the release" }
     else
-      redirect_to @release, flash: { alert: "There are some problems with the release" }
+      flash[:alert] = "There are some problems with the release"
+      render action: "edit"
     end
   end
 end
