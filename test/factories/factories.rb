@@ -1,5 +1,7 @@
 FactoryGirl.define do
   factory :release do
+    start_at { Time.now.beginning_of_hour }
+    end_at { Time.now.beginning_of_hour+30.minutes }
     user
   end
 
