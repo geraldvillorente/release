@@ -1,7 +1,7 @@
 /*
  *= require bootstrap_and_overrides
  *= require formtastic-bootstrap
- *= require bootstrap-datetimepicker.min
+ *= require chosen
  *= require_tree .
  */
 

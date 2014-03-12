@@ -24,6 +24,8 @@ gem 'exception_notification'
 
 gem 'logstasher', '0.4.8'
 
+gem 'chosen-rails', '1.0.2'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

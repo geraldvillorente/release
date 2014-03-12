@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require chosen-jquery
 //= require twitter/bootstrap
 //= require jquery_nested_form
 //= require jquery.tablesorter.min
