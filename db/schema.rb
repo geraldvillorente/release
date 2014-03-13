@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140312123547) do
+ActiveRecord::Schema.define(:version => 20140313150840) do
 
   create_table "applications", :force => true do |t|
     t.string   "name"
@@ -38,11 +38,12 @@ ActiveRecord::Schema.define(:version => 20140312123547) do
   add_index "deployments", ["application_id", "environment", "created_at"], :name => "index_deployments_on_application_id_etc"
 
   create_table "releases", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "user_id"
     t.datetime "start_at"
     t.datetime "end_at"
+    t.text     "description"
   end
 
   create_table "users", :force => true do |t|

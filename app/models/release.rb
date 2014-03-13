@@ -1,11 +1,11 @@
 class Release < ActiveRecord::Base
   belongs_to :user
 
-  attr_accessible :release_slots
+  attr_accessible :description, :release_slots
 
   before_validation :calculate_start_and_end
 
-  validates :start_at, :end_at, presence: true
+  validates :description, :release_slots, presence: true
   validate :release_slots_must_be_consecutive
 
   def release_slots
@@ -34,6 +34,7 @@ class Release < ActiveRecord::Base
   private
   def calculate_start_and_end
     sorted = @release_slots.sort_by(&:start_at)
+    return unless sorted.any?
 
     self.start_at = sorted.first.start_at
     self.end_at = sorted.last.end_at
