@@ -51,7 +51,12 @@ class ReleaseSlot
   end
 
   def self.last_release(date)
-    date.to_time.change(hour: 16, min: 30)
+    # the last release on a friday is earlier
+    if date.cwday == 5
+      date.to_time.change(hour: 15, min: 30)
+    else
+      date.to_time.change(hour: 16, min: 30)
+    end
   end
 
   private
