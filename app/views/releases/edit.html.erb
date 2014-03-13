@@ -1,5 +1,5 @@
 <% content_for :page_title, "Release ##{@release.id}"  %>
 
-<h1><%= "Release ##{@release.id}" %></h1>
+<h1><%= @release.description %></h1>
 
 <%= render partial: "form", locals: { release: @release } %>

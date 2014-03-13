@@ -7,9 +7,9 @@
 <table class="table">
   <% @releases.each do |release| %>
   <tr>
-    <td>#<%= release.id %></td>
+    <td><%= link_to "##{release.id} #{release.description}", release_path(release) %></td>
     <td><%= release.start_at.strftime("%a %H:%M") %> &rarr; <%= release.end_at.strftime("%H:%M") %></td>
-    <td><%= link_to "Edit", release_path(release) %></td>
+    <td><%= link_to "Edit", edit_release_path(release) %></td>
   </tr>
   <% end %>
 </table>

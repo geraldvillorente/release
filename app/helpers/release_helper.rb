@@ -6,10 +6,9 @@ module ReleaseHelper
     pairs = slots.map {|s|
       [label_for_slot(s), s.start_at]
     }
-
-    selected = []
     disabled = slots.reject(&:available?).map(&:start_at)
 
+    selected = []
     if (existing_slots = form.object.release_slots)
       selected = existing_slots.map(&:start_at)
       disabled = disabled - selected
@@ -25,6 +24,24 @@ module ReleaseHelper
            else
              Date.today
            end
+  end
+
+  def next_day(form)
+    next_day = (release_slot_date(form) + 1.day)
+    next_day.cwday > 5 ? next_day.next_week(:monday) : next_day
+  end
+
+  def prev_day(form)
+    current_day = release_slot_date(form)
+    current_day.cwday == 1 ? current_day.prev_week(:friday) : (current_day - 1.day)
+  end
+
+  def url_to_next_day(form)
+    new_release_path(:date => next_day(form))
+  end
+
+  def url_to_prev_day(form)
+    new_release_path(:date => prev_day(form))
   end
 
   private

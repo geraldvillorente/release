@@ -1,5 +1,4 @@
-<%= semantic_bootstrap_nested_form_for @release, :html => {:class => "form-horizontal"} do |f| %>
-
+<%= semantic_form_for @release, :html => {:class => "release-form"} do |f| %>
   <% if f.object.errors.count > 0 %>
     <div class="alert alert-error">
       <ul>
@@ -10,15 +9,46 @@
     </div>
   <% end %>
 
-  <h3><%= release_slot_date(f).strftime("%A %d %B") %></h3>
+  <label for="release_release_slots">When do you want to release?</label>
+  <div class="release-slot-selector">
+    <div class="date">
+      <% if f.object.new_record? && release_slot_date(f) > Date.today %>
+        <span class="prev">
+          <%= link_to url_to_prev_day(f) do %>
+            &laquo; <%= prev_day(f).strftime("%A") %>
+          <% end %>
+        </span>
+      <% end %>
 
-  <%= f.input :release_slots, as: :select,
-                              multiple: true,
-                              collection: release_slots_for_select(f),
-                              label: "Choose a slot",
-                              input_html: { class: "enhanced-select span6" }
-                              %>
-  <div class="hint">You can choose as many time slots as you need, as long as they're together.</div>
+      <span class="current"><%= release_slot_date(f).strftime("%A %d %B") %></span>
+
+      <% if f.object.new_record? %>
+        <span class="next">
+          <%= link_to url_to_next_day(f) do %>
+            <%= next_day(f).strftime("%A") %> &raquo;
+          <% end %>
+        </span>
+      <% end %>
+    </div>
+
+    <div class="slots">
+      <%= f.input :release_slots, as: :select,
+                                  multiple: true,
+                                  collection: release_slots_for_select(f),
+                                  label: false,
+                                  input_html: {
+                                    :'data-placeholder' => "Choose one or more release slots...",
+                                    :class => "enhanced-select span11",
+                                  }
+                                  %>
+      <div class="hint">You can choose as many time slots as you need, as long as they're together.</div>
+    </div>
+  </div>
+
+  <%= f.input :description, as: :string,
+                            label: "What do you want to release?",
+                            input_html: { class: "span6" }
+                            %>
 
   <%= f.actions do %>
     <%= f.action :submit, :as => :button %>

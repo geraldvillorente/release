@@ -1,11 +1,8 @@
 <% content_for :page_title, "Release #{@release.id}"  %>
 
-<h1><%= "Release #{@release.id}" %></h1>
+<h1><%= @release.description %> (<%= "##{@release.id}" %>)</h1>
 
-<p>
-  Start at: <%= @release.start_at %><br>
-  End at: <%= @release.end_at %>
-</p>
+<h2><%= @release.start_at.strftime("%A %d %B %H:%M") %> &rarr; <%= @release.end_at.strftime("%H:%M") %></h2>
 
 <div class="btn-group">
   <%= link_to "Edit", { action: "edit", id: @release.id }, class: "btn" %>
