@@ -4,7 +4,7 @@
       <th scope="col" class="headerSortDown">Name</th>
       <th scope="col">In sync?</th>
       <% @environments.each do |environment| %>
-        <th scope="col"><%= environment.humanize %></th>
+        <th scope="col"><%= environment.name.humanize %></th>
       <% end %>
       <th>Notes</th>
     </tr>
@@ -19,7 +19,7 @@
           <%= application.staging_and_production_in_sync? ? "Yes" : "No" %>
         </td>
         <% @environments.each do |environment| %>
-          <% latest_deploy = application.latest_deploy_to_each_environment[environment] %>
+          <% latest_deploy = application.latest_deploy_to_each_environment[environment.name] %>
           <td class="<%= latest_deploy.try(:recent?) ? "deployed-recently" : "" %>" title="<%= latest_deploy.try(:created_at) || '' %>">
             <% if latest_deploy %>
               <%= github_tag_link_to(application, latest_deploy.version) %>
@@ -33,8 +33,20 @@
             <% else %>
               N/A
             <% end %>
-            <%= link_to(new_application_deployment_path(application, environment: environment)) do %>
-              <i class="icon-edit pull-right" title="Add a missing deployment"></i>
+            <%= link_to(new_application_deployment_path(application, environment: environment.name)) do %>
+              <i class="icon-edit" title="Add a missing deployment"></i>
+            <% end %>
+            <h1><%=current_user.permissions%></h1>
+            <% if environment.parent %>
+              <% if current_user.may_deploy_to(environment.name) %>
+                <%= link_to("deploy", target: "_blank", class: "deploy") do %>
+                  <i class="icon-thumbs-up pull-right" title="Deploy to <%= environment.parent %>"></i>
+                <% end %>
+              <% else %>
+                <%= link_to("request_deploy", target: "_blank", class: "request") do %>
+                  <i class="icon-bullhorn pull-right" title="Request deployment"></i>
+                <% end %>
+              <% end %>
             <% end %>
           </td>
         <% end %>
