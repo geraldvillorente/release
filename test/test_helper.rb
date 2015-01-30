@@ -11,7 +11,7 @@ require 'rails/test_help'
 require 'shoulda-context'
 require 'minitest/autorun'
 require 'mocha/setup'
-require 'webmock/test_unit'
+require 'webmock/minitest'
 
 DatabaseCleaner.clean
 
@@ -64,6 +64,10 @@ class ActiveSupport::TestCase
       :authenticated? => true,
       :user => user
     )
+  end
+
+  setup do
+    DatabaseCleaner.start
   end
 
   teardown do

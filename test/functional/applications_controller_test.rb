@@ -2,6 +2,23 @@ require "test_helper"
 
 class ApplicationsControllerTest < ActionController::TestCase
 
+  def random_sha
+    hex_chars = Enumerator.new do |yielder|
+      loop { yielder << "0123456789abcdef".chars.to_a.sample }
+    end
+    hex_chars.take(40).join
+  end
+
+  def stub_commit
+    {
+      sha: random_sha,
+      login: "winston",
+      commit: {
+        message: "Hi"
+      }
+    }
+  end
+
   setup do
     login_as_stub_user
   end
@@ -112,23 +129,6 @@ class ApplicationsControllerTest < ActionController::TestCase
     end
 
     context "GET show with a production deployment" do
-      def random_sha
-        hex_chars = Enumerator.new do |yielder|
-          loop { yielder << "0123456789abcdef".chars.to_a.sample }
-        end
-        hex_chars.take(40).join
-      end
-
-      def stub_commit
-        {
-          sha: random_sha,
-          login: "winston",
-          commit: {
-            message: "Hi"
-          }
-        }
-      end
-
       setup do
         version = "release_42"
         FactoryGirl.create(:deployment, application: @app, version: version)
