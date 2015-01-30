@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.17'
+gem 'rails', '3.2.21'
 
 gem 'formtastic', '2.3.0'
 gem 'formtastic-bootstrap', '3.0.0'
