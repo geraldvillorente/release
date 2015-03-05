@@ -40,7 +40,7 @@ class ApplicationsController < ApplicationController
     end
 
     @github_available = true
-  rescue Octokit::NotFound => e
+  rescue Octokit::Error => e
     @github_available = false
     @github_error = e
   end
